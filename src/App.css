@@ -3,6 +3,155 @@ body {
   font-family: Arial;
 }
 
+.mobile-toggle {
+  display: none;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  .mobile-toggle {
+    display: block;
+    position: fixed;
+    bottom: 50vh;
+    right: 10px;
+    z-index: 1500;
+    background: #002f34;
+    color: white;
+    border: none;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  .controls-panel {
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    min-width: auto;
+    max-height: 50vh;
+    border-radius: 12px 12px 0 0;
+    padding: 12px;
+    transition: transform 0.3s ease-out;
+  }
+
+  .controls-panel.hide {
+    transform: translateY(100%);
+  }
+
+  .controls-panel.show {
+    transform: translateY(0);
+  }
+
+  .control-group.buttons {
+    flex-wrap: wrap;
+  }
+
+  .refresh-btn,
+  .dark-mode-btn,
+  .export-btn,
+  .share-btn,
+  .favorites-btn,
+  .compare-btn,
+  .legend-btn,
+  .analytics-btn {
+    min-width: 45%;
+    padding: 10px 8px;
+    font-size: 11px;
+  }
+
+  .refresh-btn span,
+  .dark-mode-btn span,
+  .export-btn span,
+  .share-btn span,
+  .favorites-btn span,
+  .compare-btn span,
+  .legend-btn span,
+  .analytics-btn span {
+    font-size: 11px;
+  }
+
+  #status {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    font-size: 11px;
+  }
+
+  .modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: none;
+    border-radius: 0;
+    max-width: 100%;
+    max-height: 100%;
+    animation: slideUp 0.3s ease-out;
+  }
+
+  .side-panel,
+  .compare-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: none;
+    border-radius: 0;
+    max-width: 100%;
+    max-height: 100%;
+    animation: slideUp 0.3s ease-out;
+  }
+
+  .analytics-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: none;
+    border-radius: 0;
+    max-width: 100%;
+    max-height: 100%;
+    animation: slideUp 0.3s ease-out;
+  }
+
+  .legend {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 280px;
+    max-width: 90%;
+  }
+
+  .custom-center-info {
+    bottom: 52vh;
+    left: 10px;
+    right: 10px;
+    transform: none;
+    text-align: center;
+  }
+
+  .compare-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .main-image {
+    height: 150px;
+  }
+
+  .thumbnail {
+    width: 50px;
+    height: 50px;
+  }
+}
+
 .dark-mode {
   background-color: #1a1a1a;
   color: #e0e0e0;

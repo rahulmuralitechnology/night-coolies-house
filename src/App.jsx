@@ -62,6 +62,7 @@ function App() {
   const [showLegend, setShowLegend] = useState(false);
   const [customCenter, setCustomCenter] = useState(null);
   const [showAnalytics, setShowAnalytics] = useState(false);
+  const [showMobileControls, setShowMobileControls] = useState(true);
   const seenIdsRef = useRef(new Set());
 
   useEffect(() => {
@@ -402,7 +403,10 @@ function App() {
 
   return (
     <div className={darkMode ? 'dark-mode' : ''}>
-      <div className="controls-panel">
+      <button className="mobile-toggle" onClick={() => setShowMobileControls(!showMobileControls)}>
+        {showMobileControls ? '▼' : '▲'}
+      </button>
+      <div className={`controls-panel ${showMobileControls ? 'show' : 'hide'}`}>
         <div className="control-group">
           <label>Search:</label>
           <input
