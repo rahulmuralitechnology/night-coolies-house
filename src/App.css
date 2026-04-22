@@ -76,7 +76,9 @@ body {
 .export-btn,
 .share-btn,
 .favorites-btn,
-.compare-btn {
+.compare-btn,
+.legend-btn,
+.analytics-btn {
   background: #002f34;
   color: white;
   border: none;
@@ -88,6 +90,21 @@ body {
   transition: background 0.2s;
   flex: 1;
   min-width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.refresh-btn span,
+.dark-mode-btn span,
+.export-btn span,
+.share-btn span,
+.favorites-btn span,
+.compare-btn span,
+.legend-btn span,
+.analytics-btn span {
+  font-size: 12px;
 }
 
 .refresh-btn:hover,

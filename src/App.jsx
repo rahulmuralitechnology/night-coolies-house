@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Circle, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { RefreshCw, Moon, Sun, Download, Share2, Heart, Scale, BarChart3, MapPin, X } from 'lucide-react';
 
 const CENTER = { lat: 12.9499095, lon: 77.5925484 };
 const MAX_DISTANCE = 5; // km
@@ -391,10 +392,10 @@ function App() {
     });
   };
 
-  // Create clown icon for center location
-  const clownIcon = L.divIcon({
-    className: 'clown-icon',
-    html: `<div style="font-size: 40px; text-align: center; line-height: 1;">🤡</div>`,
+  // Create location icon for center location
+  const locationIcon = L.divIcon({
+    className: 'location-icon',
+    html: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#002f34" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>`,
     iconSize: [40, 40],
     iconAnchor: [20, 20]
   });
@@ -484,28 +485,36 @@ function App() {
         </div>
         <div className="control-group buttons">
           <button onClick={handleRefresh} className="refresh-btn">
-            🔄 Refresh
+            <RefreshCw size={16} />
+            <span>Refresh</span>
           </button>
           <button onClick={() => setDarkMode(!darkMode)} className="dark-mode-btn">
-            {darkMode ? '☀️ Light' : '🌙 Dark'}
+            {darkMode ? <Sun size={16} /> : <Moon size={16} />}
+            <span>{darkMode ? 'Light' : 'Dark'}</span>
           </button>
           <button onClick={handleExport} className="export-btn">
-            📥 Export
+            <Download size={16} />
+            <span>Export</span>
           </button>
           <button onClick={handleShare} className="share-btn">
-            🔗 Share
+            <Share2 size={16} />
+            <span>Share</span>
           </button>
           <button onClick={() => setShowFavorites(!showFavorites)} className="favorites-btn">
-            ❤️ Favorites ({favorites.length})
+            <Heart size={16} />
+            <span>Favorites ({favorites.length})</span>
           </button>
           <button onClick={() => setShowCompare(!showCompare)} className="compare-btn">
-            ⚖️ Compare ({compareList.length})
+            <Scale size={16} />
+            <span>Compare ({compareList.length})</span>
           </button>
           <button onClick={() => setShowLegend(!showLegend)} className="legend-btn">
-            📊 Legend
+            <MapPin size={16} />
+            <span>Legend</span>
           </button>
           <button onClick={() => setShowAnalytics(!showAnalytics)} className="analytics-btn">
-            📈 Analytics
+            <BarChart3 size={16} />
+            <span>Analytics</span>
           </button>
         </div>
       </div>
@@ -519,12 +528,12 @@ function App() {
           maxZoom={19}
         />
         <MapClickHandler onMapClick={handleMapClick} />
-        <Marker position={[CENTER.lat, CENTER.lon]} icon={clownIcon}>
+        <Marker position={[CENTER.lat, CENTER.lon]} icon={locationIcon}>
           <Popup>Default Center Location</Popup>
         </Marker>
         {customCenter && (
           <>
-            <Marker position={[customCenter.lat, customCenter.lon]} icon={clownIcon}>
+            <Marker position={[customCenter.lat, customCenter.lon]} icon={locationIcon}>
               <Popup>Custom Center Location</Popup>
             </Marker>
             <Circle
@@ -560,7 +569,9 @@ function App() {
         <div className="legend">
           <div className="legend-header">
             <h4>Price Legend</h4>
-            <button onClick={() => setShowLegend(false)} className="close-btn">×</button>
+            <button onClick={() => setShowLegend(false)} className="close-btn">
+              <X size={20} />
+            </button>
           </div>
           <div className="legend-content">
             <div className="legend-item">
@@ -627,7 +638,9 @@ function App() {
         <div className="side-panel">
           <div className="side-panel-header">
             <h3>Favorites ({favorites.length})</h3>
-            <button onClick={() => setShowFavorites(false)} className="close-btn">×</button>
+            <button onClick={() => setShowFavorites(false)} className="close-btn">
+              <X size={20} />
+            </button>
           </div>
           <div className="side-panel-content">
             {favorites.length === 0 ? (
@@ -648,7 +661,9 @@ function App() {
         <div className="compare-panel">
           <div className="compare-header">
             <h3>Compare Rooms ({compareList.length})</h3>
-            <button onClick={() => setShowCompare(false)} className="close-btn">×</button>
+            <button onClick={() => setShowCompare(false)} className="close-btn">
+              <X size={20} />
+            </button>
           </div>
           <div className="compare-content">
             {compareList.length === 0 ? (
@@ -677,7 +692,9 @@ function App() {
         <div className="analytics-panel">
           <div className="analytics-header">
             <h3>Analytics</h3>
-            <button onClick={() => setShowAnalytics(false)} className="close-btn">×</button>
+            <button onClick={() => setShowAnalytics(false)} className="close-btn">
+              <X size={20} />
+            </button>
           </div>
           <div className="analytics-content">
             {(() => {
