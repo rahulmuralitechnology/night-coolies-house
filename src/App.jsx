@@ -393,10 +393,10 @@ function App() {
     });
   };
 
-  // Create location icon for center location
-  const locationIcon = L.divIcon({
-    className: 'location-icon',
-    html: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#002f34" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>`,
+  // Create clown icon for center location
+  const clownIcon = L.divIcon({
+    className: 'clown-icon',
+    html: `<div style="font-size: 40px; text-align: center; line-height: 1;">🤡</div>`,
     iconSize: [40, 40],
     iconAnchor: [20, 20]
   });
@@ -532,12 +532,12 @@ function App() {
           maxZoom={19}
         />
         <MapClickHandler onMapClick={handleMapClick} />
-        <Marker position={[CENTER.lat, CENTER.lon]} icon={locationIcon}>
+        <Marker position={[CENTER.lat, CENTER.lon]} icon={clownIcon}>
           <Popup>Default Center Location</Popup>
         </Marker>
         {customCenter && (
           <>
-            <Marker position={[customCenter.lat, customCenter.lon]} icon={locationIcon}>
+            <Marker position={[customCenter.lat, customCenter.lon]} icon={clownIcon}>
               <Popup>Custom Center Location</Popup>
             </Marker>
             <Circle
@@ -555,7 +555,7 @@ function App() {
             eventHandlers={{
               mouseover: () => setHoveredRoom(room),
               mouseout: () => setHoveredRoom(null),
-              click: () => window.open(`https://www.olx.in/item/${room.adId}`, '_blank'),
+              click: () => setHoveredRoom(room),
             }}
           >
             <Popup>
@@ -608,11 +608,14 @@ function App() {
             <div className="modal-header">
               <h3>{hoveredRoom.title}</h3>
               <div className="modal-actions">
+                <button onClick={() => setHoveredRoom(null)} className="modal-action-btn">
+                  <X size={20} />
+                </button>
                 <button onClick={() => toggleFavorite(hoveredRoom)} className="modal-action-btn">
-                  {favorites.some(f => f.id === hoveredRoom.id) ? '❤️' : '🤍'}
+                  <Heart size={20} fill={favorites.some(f => f.id === hoveredRoom.id) ? '#ff0000' : 'none'} />
                 </button>
                 <button onClick={() => toggleCompare(hoveredRoom)} className="modal-action-btn">
-                  {compareList.some(c => c.id === hoveredRoom.id) ? '⚖️' : '📊'}
+                  <Scale size={20} />
                 </button>
               </div>
             </div>
