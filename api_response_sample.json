@@ -1,0 +1,29 @@
+{
+  "data": [
+    {
+      "id": "1840721360",
+      "title": "Room sharing for male roommate",
+      "price": {
+        "value": {
+          "raw": 4000.0,
+          "currency": {
+            "iso_4217": "INR",
+            "pre": "₹"
+          },
+          "display": "₹ 4,000"
+        },
+        "key_name": "Price",
+        "key": "price"
+      },
+      "locations": [
+        {
+          "lat": 12.989,
+          "lon": 77.556
+        }
+      ],
+      "description": "Single room sharing",
+      "user_name": "OLX User",
+      "main_info": "1 BHK - 1 Bathroom - 800 sqft"
+    }
+  ]
+}
