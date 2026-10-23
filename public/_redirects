@@ -1,0 +1,5 @@
+# Same proxies as vite.config.js, for the deployed site
+/api/nobroker/*     https://www.nobroker.in/api/:splat     200
+/api/magicbricks/*  https://www.magicbricks.com/:splat     200
+/api/squareyards/*  https://www.squareyards.com/:splat     200
+/api/stanza/*       https://www.stanzaliving.com/:splat    200

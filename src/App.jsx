@@ -2,17 +2,28 @@ import { useEffect, useState, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Circle, CircleMarker, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { RefreshCw, Moon, Sun, Download, Share2, Heart, Scale, BarChart3, MapPin, X } from 'lucide-react';
+import { RefreshCw, Moon, Sun, Download, Share2, Heart, Scale, BarChart3, MapPin, X, SlidersHorizontal } from 'lucide-react';
+import {
+  fetchMagicBricksPage, parseMagicBricksItem,
+  SQUAREYARDS_LOCALITY_SLUGS, fetchSquareYardsPage, parseSquareYardsItem,
+  fetchStanzaResidences, parseStanzaItem,
+} from './sources';
 
 const CENTER = { lat: 13.0690331, lon: 77.5919998 };
 const MAX_DISTANCE = 10; // km
 const MAX_PAGES = 25; // safety limit
 const NOBROKER_PAGE_SIZE = 500;
 const NOBROKER_MAX_PAGES = 40; // safety limit
+const MAGICBRICKS_MAX_PAGES = 60; // safety limit
+const SQUAREYARDS_MAX_PAGES_PER_LOCALITY = 15; // safety limit
+const SQUAREYARDS_PARALLEL_LOCALITIES = 4;
 
 const SOURCES = {
   olx: 'OLX',
   nobroker: 'NoBroker',
+  magicbricks: 'MagicBricks',
+  squareyards: 'Square Yards',
+  stanza: 'Stanza Living',
 };
 
 function getDistance(lat1, lon1, lat2, lon2) {
@@ -26,6 +37,13 @@ function getDistance(lat1, lon1, lat2, lon2) {
     Math.sin(dLon / 2) ** 2;
 
   return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
+}
+
+function withinRadius(room) {
+  if (!room) return null;
+  const distance = getDistance(CENTER.lat, CENTER.lon, room.lat, room.lon);
+  if (distance > MAX_DISTANCE) return null;
+  return { ...room, distance: distance.toFixed(2), distanceRaw: distance };
 }
 
 async function fetchPage(page) {
@@ -182,11 +200,14 @@ function App() {
       setLoading(true);
       seenIdsRef.current = new Set(); // Reset seen IDs on each fetch
       setRooms([]); // Clear previous rooms
-      const counts = { olx: 0, nobroker: 0 };
-      const pages = { olx: 0, nobroker: 0 };
+      const counts = Object.fromEntries(Object.keys(SOURCES).map(key => [key, 0]));
+      const pages = Object.fromEntries(Object.keys(SOURCES).map(key => [key, 0]));
 
       const updateStatus = () => {
-        setStatus(`Fetching... OLX page ${pages.olx} (${counts.olx}), NoBroker page ${pages.nobroker} (${counts.nobroker})`);
+        const progress = Object.entries(SOURCES)
+          .map(([key, name]) => `${name} p${pages[key]} (${counts[key]})`)
+          .join(', ');
+        setStatus(`Fetching... ${progress}`);
       };
 
       const addListings = (source, listings, parse) => {
@@ -245,12 +266,77 @@ function App() {
         }
       }
 
-      await Promise.all([fetchOlx(), fetchNoBroker()]);
+      async function fetchMagicBricks() {
+        const rawSeen = new Set();
+        for (let page = 1; page <= MAGICBRICKS_MAX_PAGES && !cancelled; page++) {
+          pages.magicbricks = page;
+          updateStatus();
+          try {
+            const listings = await fetchMagicBricksPage(page);
+            // Past the last page MagicBricks repeats earlier results instead of returning nothing
+            const fresh = listings.filter(item => !rawSeen.has(item.id));
+            if (!fresh.length) break;
+            fresh.forEach(item => rawSeen.add(item.id));
+
+            addListings('magicbricks', fresh, item => withinRadius(parseMagicBricksItem(item)));
+
+            await new Promise(r => setTimeout(r, 300)); // avoid rate limit
+          } catch (err) {
+            console.error("Error on MagicBricks page", page, err);
+            break;
+          }
+        }
+      }
+
+      async function fetchSquareYards() {
+        const queue = [...SQUAREYARDS_LOCALITY_SLUGS];
+        const workers = Array.from({ length: SQUAREYARDS_PARALLEL_LOCALITIES }, async () => {
+          while (queue.length && !cancelled) {
+            await fetchSquareYardsLocality(queue.shift());
+          }
+        });
+        await Promise.all(workers);
+      }
+
+      async function fetchSquareYardsLocality(slug) {
+        const rawSeen = new Set();
+        for (let page = 1; page <= SQUAREYARDS_MAX_PAGES_PER_LOCALITY && !cancelled; page++) {
+          pages.squareyards++;
+          updateStatus();
+          try {
+            const listings = await fetchSquareYardsPage(slug, page);
+            const fresh = listings.filter(item => !rawSeen.has(item.id));
+            if (!fresh.length) break;
+            fresh.forEach(item => rawSeen.add(item.id));
+
+            addListings('squareyards', fresh, item => withinRadius(parseSquareYardsItem(item)));
+
+            await new Promise(r => setTimeout(r, 300)); // avoid rate limit
+          } catch (err) {
+            console.error("Error on Square Yards", slug, "page", page, err);
+            break;
+          }
+        }
+      }
+
+      async function fetchStanza() {
+        pages.stanza = 1;
+        updateStatus();
+        try {
+          const residences = await fetchStanzaResidences();
+          addListings('stanza', residences, item => withinRadius(parseStanzaItem(item)));
+        } catch (err) {
+          console.error("Error on Stanza Living", err);
+        }
+      }
+
+      await Promise.all([fetchOlx(), fetchNoBroker(), fetchMagicBricks(), fetchSquareYards(), fetchStanza()]);
       if (cancelled) return;
 
-      const total = counts.olx + counts.nobroker;
+      const total = Object.values(counts).reduce((sum, n) => sum + n, 0);
+      const breakdown = Object.entries(SOURCES).map(([key, name]) => `${name} ${counts[key]}`).join(', ');
       setTotalShown(total);
-      setStatus(`Done ✅ Showing ${total} rooms within ${MAX_DISTANCE}km (OLX ${counts.olx}, NoBroker ${counts.nobroker})`);
+      setStatus(`Done ✅ Showing ${total} rooms within ${MAX_DISTANCE}km (${breakdown})`);
       setLoading(false);
     }
 
@@ -500,8 +586,12 @@ function App() {
 
   return (
     <div className={darkMode ? 'dark-mode' : ''}>
-      <button className="mobile-toggle" onClick={() => setShowMobileControls(!showMobileControls)}>
-        {showMobileControls ? '▼' : '▲'}
+      <button
+        className="mobile-toggle"
+        onClick={() => setShowMobileControls(!showMobileControls)}
+        aria-label={showMobileControls ? 'Hide filters' : 'Show filters'}
+      >
+        {showMobileControls ? <X size={20} /> : <SlidersHorizontal size={20} />}
       </button>
       <div className={`controls-panel ${showMobileControls ? 'show' : 'hide'}`}>
         <div className="control-group">
