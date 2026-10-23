@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, Circle, useMapEvents } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, Circle, CircleMarker, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { RefreshCw, Moon, Sun, Download, Share2, Heart, Scale, BarChart3, MapPin, X } from 'lucide-react';
@@ -7,6 +7,13 @@ import { RefreshCw, Moon, Sun, Download, Share2, Heart, Scale, BarChart3, MapPin
 const CENTER = { lat: 13.0690331, lon: 77.5919998 };
 const MAX_DISTANCE = 10; // km
 const MAX_PAGES = 25; // safety limit
+const NOBROKER_PAGE_SIZE = 500;
+const NOBROKER_MAX_PAGES = 40; // safety limit
+
+const SOURCES = {
+  olx: 'OLX',
+  nobroker: 'NoBroker',
+};
 
 function getDistance(lat1, lon1, lat2, lon2) {
   const R = 6371;
@@ -27,6 +34,108 @@ async function fetchPage(page) {
   const res = await fetch(url);
   const data = await res.json();
   return data?.data || [];
+}
+
+// NoBroker doesn't allow cross-origin requests, so this goes through the Vite proxy in vite.config.js
+async function fetchNoBrokerPage(page) {
+  const searchParam = btoa(JSON.stringify([{ lat: CENTER.lat, lon: CENTER.lon, placeId: 'x', placeName: 'Base' }]));
+  const url = `/api/nobroker/v3/multi/property/RENT/filter?searchParam=${encodeURIComponent(searchParam)}&radius=${MAX_DISTANCE}&sharedAccomodation=0&city=bangalore&size=${NOBROKER_PAGE_SIZE}&pageNo=${page}`;
+
+  const res = await fetch(url);
+  const data = await res.json();
+  return data?.data || [];
+}
+
+function parseOlxItem(item) {
+  const lat = item?.locations?.[0]?.lat;
+  const lon = item?.locations?.[0]?.lon;
+  if (!lat || !lon) return null;
+
+  const distance = getDistance(CENTER.lat, CENTER.lon, lat, lon);
+  if (distance > MAX_DISTANCE) return null;
+
+  // Extract BHK from main_info or parameters
+  const bhkMatch = item.main_info?.match(/(\d+)\s*BHK/i) ||
+                  item.parameters?.find(p => p.key === 'rooms')?.value_name;
+  const bhk = bhkMatch ? parseInt(bhkMatch) : 0;
+
+  // Extract furnishing status
+  const furnishingParam = item.parameters?.find(p => p.key === 'furnished');
+  const furnishing = furnishingParam?.value_name?.toLowerCase() || '';
+
+  // Extract listing type
+  const listingTypeParam = item.parameters?.find(p => p.key === 'listed_by');
+  const listingType = listingTypeParam?.value_name?.toLowerCase() || '';
+
+  // Extract area (sqft)
+  const areaParam = item.parameters?.find(p => p.key === 'ft');
+  const area = areaParam?.value_name ? parseInt(areaParam.value_name) : 0;
+
+  return {
+    id: `olx-${item.id}`,
+    source: 'olx',
+    url: `https://www.olx.in/item/${item.ad_id}`,
+    lat,
+    lon,
+    title: item.title,
+    description: item.description || '',
+    price: item.price?.value?.display || item.price?.value?.raw?.toString() || 'N/A',
+    priceRaw: item.price?.value?.raw || 0,
+    distance: distance.toFixed(2),
+    distanceRaw: distance,
+    images: item.images?.map(img => img.url) || [],
+    mainInfo: item.main_info || '',
+    userName: item.user_name || '',
+    createdDate: item.created_at || '',
+    bhk,
+    furnishing,
+    listingType,
+    area
+  };
+}
+
+const NOBROKER_FURNISHING = {
+  FULLY_FURNISHED: 'furnished',
+  SEMI_FURNISHED: 'semi-furnished',
+  NOT_FURNISHED: 'unfurnished',
+};
+
+function parseNoBrokerItem(item) {
+  const lat = item.latitude;
+  const lon = item.longitude;
+  // Lease listings have no monthly rent
+  if (!lat || !lon || !item.rent) return null;
+
+  const distance = getDistance(CENTER.lat, CENTER.lon, lat, lon);
+  if (distance > MAX_DISTANCE) return null;
+
+  const bhkMatch = item.type?.match(/\d+/);
+
+  return {
+    id: `nobroker-${item.id}`,
+    source: 'nobroker',
+    url: `https://www.nobroker.in${item.detailUrl}`,
+    lat,
+    lon,
+    title: item.propertyTitle?.trim() || item.title || '',
+    description: [item.secondaryTitle, item.address].filter(Boolean).join(' — '),
+    price: item.formattedPrice || item.rent.toString(),
+    priceRaw: item.rent,
+    distance: distance.toFixed(2),
+    distanceRaw: distance,
+    images: item.photos
+      ?.map(p => p.imagesMap?.original)
+      .filter(Boolean)
+      .map(file => `https://assets.nobroker.in/images/${item.id}/${file}`) || [],
+    mainInfo: [item.typeDesc, item.propertySize && `${item.propertySize} sqft`, item.furnishingDesc && `${item.furnishingDesc} furnished`, item.formattedDeposit && `Deposit ₹${item.formattedDeposit}`]
+      .filter(Boolean).join(' · '),
+    userName: item.ownerName || '',
+    createdDate: item.activationDate ? new Date(item.activationDate).toISOString() : '',
+    bhk: bhkMatch ? parseInt(bhkMatch[0]) : 0,
+    furnishing: NOBROKER_FURNISHING[item.furnishing] || '',
+    listingType: 'owner',
+    area: item.propertySize || 0
+  };
 }
 
 function MapClickHandler({ onMapClick }) {
@@ -52,6 +161,7 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [furnishingFilter, setFurnishingFilter] = useState('all');
   const [listingTypeFilter, setListingTypeFilter] = useState('all');
+  const [sourceFilter, setSourceFilter] = useState('all');
   const [minArea, setMinArea] = useState('');
   const [maxArea, setMaxArea] = useState('');
   const [favorites, setFavorites] = useState([]);
@@ -66,96 +176,86 @@ function App() {
   const seenIdsRef = useRef(new Set());
 
   useEffect(() => {
+    let cancelled = false;
+
     async function fetchAllRooms() {
       setLoading(true);
       seenIdsRef.current = new Set(); // Reset seen IDs on each fetch
       setRooms([]); // Clear previous rooms
-      let total = 0;
+      const counts = { olx: 0, nobroker: 0 };
+      const pages = { olx: 0, nobroker: 0 };
 
-      for (let page = 1; page <= MAX_PAGES; page++) {
-        setStatus(`Fetching page ${page}...`);
+      const updateStatus = () => {
+        setStatus(`Fetching... OLX page ${pages.olx} (${counts.olx}), NoBroker page ${pages.nobroker} (${counts.nobroker})`);
+      };
 
-        try {
-          const listings = await fetchPage(page);
+      const addListings = (source, listings, parse) => {
+        if (cancelled) return 0;
+        const batch = [];
+        listings.forEach(item => {
+          const room = parse(item);
+          if (!room || seenIdsRef.current.has(room.id)) return;
+          seenIdsRef.current.add(room.id);
+          batch.push(room);
+        });
+        counts[source] += batch.length;
+        if (batch.length) setRooms(prev => [...prev, ...batch]);
+        return batch.length;
+      };
 
-          if (!listings.length) break;
+      async function fetchOlx() {
+        for (let page = 1; page <= MAX_PAGES && !cancelled; page++) {
+          pages.olx = page;
+          updateStatus();
+          try {
+            const listings = await fetchPage(page);
+            if (!listings.length) break;
 
-          let newItems = 0;
-
-          listings.forEach(item => {
-            const id = item.id;
-            if (seenIdsRef.current.has(id)) return;
-            seenIdsRef.current.add(id);
-
-            const lat = item?.locations?.[0]?.lat;
-            const lon = item?.locations?.[0]?.lon;
-
-            if (!lat || !lon) return;
-
-            const distance = getDistance(CENTER.lat, CENTER.lon, lat, lon);
-
-            if (distance <= MAX_DISTANCE) {
-              newItems++;
-              total++;
-
-              // Extract BHK from main_info or parameters
-              const bhkMatch = item.main_info?.match(/(\d+)\s*BHK/i) ||
-                              item.parameters?.find(p => p.key === 'rooms')?.value_name;
-              const bhk = bhkMatch ? parseInt(bhkMatch) : 0;
-
-              // Extract furnishing status
-              const furnishingParam = item.parameters?.find(p => p.key === 'furnished');
-              const furnishing = furnishingParam?.value_name?.toLowerCase() || '';
-
-              // Extract listing type
-              const listingTypeParam = item.parameters?.find(p => p.key === 'listed_by');
-              const listingType = listingTypeParam?.value_name?.toLowerCase() || '';
-
-              // Extract area (sqft)
-              const areaParam = item.parameters?.find(p => p.key === 'ft');
-              const area = areaParam?.value_name ? parseInt(areaParam.value_name) : 0;
-
-              setRooms(prev => [...prev, {
-                id,
-                adId: item.ad_id,
-                lat,
-                lon,
-                title: item.title,
-                description: item.description || '',
-                price: item.price?.value?.display || item.price?.value?.raw?.toString() || 'N/A',
-                priceRaw: item.price?.value?.raw || 0,
-                distance: distance.toFixed(2),
-                distanceRaw: distance,
-                images: item.images?.map(img => img.url) || [],
-                mainInfo: item.main_info || '',
-                userName: item.user_name || '',
-                createdDate: item.created_at || '',
-                bhk: bhk,
-                furnishing: furnishing,
-                listingType: listingType,
-                area: area
-              }]);
+            if (addListings('olx', listings, parseOlxItem) === 0) {
+              console.log(`OLX page ${page}: no nearby results`);
             }
-          });
 
-          if (newItems === 0) {
-            console.log(`Page ${page}: no nearby results`);
+            await new Promise(r => setTimeout(r, 300)); // avoid rate limit
+          } catch (err) {
+            console.error("Error on OLX page", page, err);
+            break;
           }
-
-          await new Promise(r => setTimeout(r, 300)); // avoid rate limit
-
-        } catch (err) {
-          console.error("Error on page", page, err);
-          break;
         }
       }
 
+      async function fetchNoBroker() {
+        for (let page = 1; page <= NOBROKER_MAX_PAGES && !cancelled; page++) {
+          pages.nobroker = page;
+          updateStatus();
+          try {
+            const listings = await fetchNoBrokerPage(page);
+            if (!listings.length) break;
+
+            addListings('nobroker', listings, parseNoBrokerItem);
+
+            // Results are sorted by distance, so stop once past the radius
+            const last = listings[listings.length - 1];
+            if (getDistance(CENTER.lat, CENTER.lon, last.latitude, last.longitude) > MAX_DISTANCE) break;
+
+            await new Promise(r => setTimeout(r, 300)); // avoid rate limit
+          } catch (err) {
+            console.error("Error on NoBroker page", page, err);
+            break;
+          }
+        }
+      }
+
+      await Promise.all([fetchOlx(), fetchNoBroker()]);
+      if (cancelled) return;
+
+      const total = counts.olx + counts.nobroker;
       setTotalShown(total);
-      setStatus(`Done ✅ Showing ${total} rooms within ${MAX_DISTANCE}km`);
+      setStatus(`Done ✅ Showing ${total} rooms within ${MAX_DISTANCE}km (OLX ${counts.olx}, NoBroker ${counts.nobroker})`);
       setLoading(false);
     }
 
     fetchAllRooms();
+    return () => { cancelled = true; };
   }, []);
 
   // Filter and sort rooms
@@ -194,6 +294,11 @@ function App() {
       filtered = filtered.filter(room => room.listingType === listingTypeFilter);
     }
 
+    // Source filter
+    if (sourceFilter !== 'all') {
+      filtered = filtered.filter(room => room.source === sourceFilter);
+    }
+
     // Area filter
     if (minArea) {
       filtered = filtered.filter(room => room.area >= parseInt(minArea));
@@ -223,7 +328,7 @@ function App() {
     });
 
     setFilteredRooms(filtered);
-  }, [rooms, searchQuery, minPrice, maxPrice, bhkFilter, furnishingFilter, listingTypeFilter, minArea, maxArea, sortBy]);
+  }, [rooms, searchQuery, minPrice, maxPrice, bhkFilter, furnishingFilter, listingTypeFilter, sourceFilter, minArea, maxArea, sortBy]);
 
   // Refresh function
   const handleRefresh = () => {
@@ -259,8 +364,9 @@ function App() {
   // Export filtered results
   const handleExport = () => {
     const csv = [
-      ['Title', 'Price', 'BHK', 'Area', 'Distance', 'Furnishing', 'Listing Type', 'URL'],
+      ['Source', 'Title', 'Price', 'BHK', 'Area', 'Distance', 'Furnishing', 'Listing Type', 'URL'],
       ...filteredRooms.map(room => [
+        SOURCES[room.source],
         room.title,
         room.price,
         room.bhk,
@@ -268,7 +374,7 @@ function App() {
         room.distance,
         room.furnishing,
         room.listingType,
-        `https://www.olx.in/item/${room.adId}`
+        room.url
       ])
     ].map(row => row.join(',')).join('\n');
 
@@ -289,6 +395,7 @@ function App() {
     if (bhkFilter !== 'all') params.set('bhk', bhkFilter);
     if (furnishingFilter !== 'all') params.set('furnishing', furnishingFilter);
     if (listingTypeFilter !== 'all') params.set('listingType', listingTypeFilter);
+    if (sourceFilter !== 'all') params.set('source', sourceFilter);
     if (minArea) params.set('minArea', minArea);
     if (maxArea) params.set('maxArea', maxArea);
     if (searchQuery) params.set('search', searchQuery);
@@ -307,6 +414,7 @@ function App() {
     if (params.has('bhk')) setBhkFilter(params.get('bhk'));
     if (params.has('furnishing')) setFurnishingFilter(params.get('furnishing'));
     if (params.has('listingType')) setListingTypeFilter(params.get('listingType'));
+    if (params.has('source')) setSourceFilter(params.get('source'));
     if (params.has('minArea')) setMinArea(params.get('minArea'));
     if (params.has('maxArea')) setMaxArea(params.get('maxArea'));
     if (params.has('search')) setSearchQuery(params.get('search'));
@@ -380,17 +488,6 @@ function App() {
     if (price < 20000) return '#2196F3'; // Blue - mid-range
     if (price < 35000) return '#FF9800'; // Orange - upper-mid
     return '#F44336'; // Red - premium
-  };
-
-  // Create custom marker icon
-  const createCustomIcon = (price) => {
-    const color = getMarkerColor(price);
-    return L.divIcon({
-      className: 'custom-marker',
-      html: `<div style="background-color: ${color}; width: 30px; height: 30px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.3);"></div>`,
-      iconSize: [30, 30],
-      iconAnchor: [15, 15]
-    });
   };
 
   // Create clown icon for center location
@@ -477,6 +574,15 @@ function App() {
           </select>
         </div>
         <div className="control-group">
+          <label>Source:</label>
+          <select value={sourceFilter} onChange={(e) => setSourceFilter(e.target.value)}>
+            <option value="all">All</option>
+            {Object.entries(SOURCES).map(([key, name]) => (
+              <option key={key} value={key}>{name}</option>
+            ))}
+          </select>
+        </div>
+        <div className="control-group">
           <label>Sort By:</label>
           <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
             <option value="price-asc">Price: Low to High</option>
@@ -526,7 +632,7 @@ function App() {
         {status} {filteredRooms.length !== rooms.length && `(Filtered: ${filteredRooms.length}/${rooms.length})`}
       </div>
       {loading && <div className="loading-spinner">Loading...</div>}
-      <MapContainer center={[CENTER.lat, CENTER.lon]} zoom={13} style={{ height: '100vh' }}>
+      <MapContainer center={[CENTER.lat, CENTER.lon]} zoom={13} preferCanvas style={{ height: '100vh' }}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           maxZoom={19}
@@ -548,10 +654,11 @@ function App() {
           </>
         )}
         {filteredRooms.map(room => (
-          <Marker
+          <CircleMarker
             key={room.id}
-            position={[room.lat, room.lon]}
-            icon={createCustomIcon(room.priceRaw)}
+            center={[room.lat, room.lon]}
+            radius={12}
+            pathOptions={{ color: 'white', weight: 3, fillColor: getMarkerColor(room.priceRaw), fillOpacity: 1 }}
             eventHandlers={{
               mouseover: () => setHoveredRoom(room),
               mouseout: () => setHoveredRoom(null),
@@ -563,10 +670,10 @@ function App() {
                 <b>{room.title}</b><br />
                 Price: ₹{room.price}<br />
                 Distance: {room.distance} km<br />
-                <a href={`https://www.olx.in/item/${room.adId}`} target="_blank" rel="noopener noreferrer">View on OLX</a>
+                <a href={room.url} target="_blank" rel="noopener noreferrer">View on {SOURCES[room.source]}</a>
               </div>
             </Popup>
-          </Marker>
+          </CircleMarker>
         ))}
       </MapContainer>
       {showLegend && (
@@ -637,7 +744,7 @@ function App() {
             <p><strong>Listed by:</strong> {hoveredRoom.userName}</p>
             <p><strong>Posted:</strong> {new Date(hoveredRoom.createdDate).toLocaleDateString()}</p>
             <p className="description"><strong>Description:</strong> {hoveredRoom.description}</p>
-            <a href={`https://www.olx.in/item/${hoveredRoom.adId}`} target="_blank" rel="noopener noreferrer" className="olx-link">View on OLX</a>
+            <a href={hoveredRoom.url} target="_blank" rel="noopener noreferrer" className="olx-link">View on {SOURCES[hoveredRoom.source]}</a>
           </div>
         </div>
       )}
