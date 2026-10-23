@@ -1,0 +1,201 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-23T19:31:00+05:30",
+  "title": "Design System: Night Coolies House",
+  "extensions": {
+    "colorMeta": {
+      "sodium-amber": { "role": "primary", "displayName": "Sodium Amber", "canonical": "#FFB23F", "tonalRamp": ["oklch(15% 0.04 70)", "oklch(25% 0.07 70)", "oklch(35% 0.09 70)", "oklch(45% 0.11 70)", "oklch(55% 0.13 70)", "oklch(65% 0.15 70)", "oklch(82% 0.15 70)", "oklch(95% 0.05 70)"] },
+      "sodium-amber-deep": { "role": "primary", "displayName": "Sodium Amber Deep", "canonical": "#E09520", "tonalRamp": ["oklch(15% 0.04 68)", "oklch(25% 0.07 68)", "oklch(35% 0.09 68)", "oklch(45% 0.11 68)", "oklch(55% 0.13 68)", "oklch(72% 0.15 68)", "oklch(82% 0.13 68)", "oklch(95% 0.05 68)"] },
+      "sodium-amber-ink": { "role": "primary", "displayName": "Sodium Ink", "canonical": "#1F1400", "tonalRamp": ["oklch(15% 0.03 75)", "oklch(20% 0.04 75)", "oklch(35% 0.06 75)", "oklch(45% 0.08 75)", "oklch(55% 0.09 75)", "oklch(65% 0.1 75)", "oklch(80% 0.08 75)", "oklch(95% 0.03 75)"] },
+      "sodium-wash": { "role": "primary", "displayName": "Sodium Wash", "canonical": "rgba(255, 178, 63, 0.14)", "tonalRamp": ["rgba(255, 178, 63, 0.06)", "rgba(255, 178, 63, 0.1)", "rgba(255, 178, 63, 0.14)", "rgba(255, 178, 63, 0.2)", "rgba(255, 178, 63, 0.28)", "rgba(255, 178, 63, 0.35)", "rgba(255, 178, 63, 0.5)", "rgba(255, 178, 63, 0.7)"] },
+      "pin-periwinkle": { "role": "secondary", "displayName": "Pin Periwinkle", "canonical": "#8F9BFF", "tonalRamp": ["oklch(15% 0.05 275)", "oklch(25% 0.09 275)", "oklch(35% 0.13 275)", "oklch(45% 0.16 275)", "oklch(55% 0.17 275)", "oklch(72% 0.14 275)", "oklch(82% 0.09 275)", "oklch(95% 0.03 275)"] },
+      "night-ground": { "role": "neutral", "displayName": "Night Ground", "canonical": "#0E1126", "tonalRamp": ["oklch(15% 0.035 275)", "oklch(18% 0.04 275)", "oklch(25% 0.045 275)", "oklch(35% 0.045 275)", "oklch(50% 0.04 275)", "oklch(65% 0.035 275)", "oklch(80% 0.025 275)", "oklch(95% 0.01 275)"] },
+      "night-paper": { "role": "neutral", "displayName": "Night Paper", "canonical": "#161A35", "tonalRamp": ["oklch(15% 0.04 275)", "oklch(22% 0.05 275)", "oklch(30% 0.05 275)", "oklch(40% 0.05 275)", "oklch(52% 0.045 275)", "oklch(65% 0.04 275)", "oklch(80% 0.025 275)", "oklch(95% 0.01 275)"] },
+      "night-raised": { "role": "neutral", "displayName": "Night Raised", "canonical": "#1E2344", "tonalRamp": ["oklch(15% 0.04 275)", "oklch(26% 0.06 275)", "oklch(34% 0.06 275)", "oklch(44% 0.055 275)", "oklch(55% 0.05 275)", "oklch(66% 0.04 275)", "oklch(80% 0.025 275)", "oklch(95% 0.01 275)"] },
+      "input-well": { "role": "neutral", "displayName": "Input Well", "canonical": "rgba(0, 0, 0, 0.18)", "tonalRamp": ["rgba(0, 0, 0, 0.06)", "rgba(0, 0, 0, 0.1)", "rgba(0, 0, 0, 0.18)", "rgba(0, 0, 0, 0.25)", "rgba(0, 0, 0, 0.35)", "rgba(0, 0, 0, 0.45)", "rgba(0, 0, 0, 0.6)", "rgba(0, 0, 0, 0.75)"] },
+      "moonlight-text": { "role": "neutral", "displayName": "Moonlight Text", "canonical": "#ECEAF6", "tonalRamp": ["oklch(15% 0.02 290)", "oklch(25% 0.02 290)", "oklch(35% 0.02 290)", "oklch(45% 0.02 290)", "oklch(55% 0.02 290)", "oklch(70% 0.02 290)", "oklch(85% 0.015 290)", "oklch(94% 0.012 290)"] },
+      "dusk-text": { "role": "neutral", "displayName": "Dusk Text", "canonical": "#A3A8CC", "tonalRamp": ["oklch(15% 0.03 275)", "oklch(25% 0.035 275)", "oklch(35% 0.04 275)", "oklch(45% 0.045 275)", "oklch(55% 0.045 275)", "oklch(72% 0.045 275)", "oklch(82% 0.03 275)", "oklch(95% 0.01 275)"] },
+      "faded-text": { "role": "neutral", "displayName": "Faded Text", "canonical": "#6B7099", "tonalRamp": ["oklch(15% 0.03 275)", "oklch(25% 0.04 275)", "oklch(35% 0.05 275)", "oklch(45% 0.05 275)", "oklch(54% 0.055 275)", "oklch(65% 0.05 275)", "oklch(80% 0.03 275)", "oklch(95% 0.01 275)"] },
+      "hairline": { "role": "neutral", "displayName": "Hairline", "canonical": "rgba(160, 170, 235, 0.14)", "tonalRamp": ["rgba(160, 170, 235, 0.06)", "rgba(160, 170, 235, 0.1)", "rgba(160, 170, 235, 0.14)", "rgba(160, 170, 235, 0.2)", "rgba(160, 170, 235, 0.3)", "rgba(160, 170, 235, 0.42)", "rgba(160, 170, 235, 0.6)", "rgba(160, 170, 235, 0.8)"] },
+      "tooltip-ink": { "role": "neutral", "displayName": "Tooltip Ink", "canonical": "#2A3058", "tonalRamp": ["oklch(15% 0.04 275)", "oklch(25% 0.06 275)", "oklch(32% 0.065 275)", "oklch(42% 0.065 275)", "oklch(54% 0.06 275)", "oklch(66% 0.05 275)", "oklch(80% 0.03 275)", "oklch(95% 0.01 275)"] },
+      "shell-bar": { "role": "neutral", "displayName": "Shell Bar Indigo", "canonical": "#151935", "tonalRamp": ["oklch(15% 0.04 275)", "oklch(22% 0.05 275)", "oklch(30% 0.055 275)", "oklch(40% 0.055 275)", "oklch(52% 0.05 275)", "oklch(65% 0.045 275)", "oklch(80% 0.03 275)", "oklch(95% 0.01 275)"] },
+      "shell-muted": { "role": "neutral", "displayName": "Shell Muted", "canonical": "#A9AEDA", "tonalRamp": ["oklch(15% 0.035 275)", "oklch(25% 0.045 275)", "oklch(35% 0.055 275)", "oklch(45% 0.06 275)", "oklch(55% 0.06 275)", "oklch(74% 0.06 275)", "oklch(84% 0.04 275)", "oklch(95% 0.012 275)"] },
+      "band-budget": { "role": "tertiary", "displayName": "Budget Teal", "canonical": "#3DD6A3", "tonalRamp": ["oklch(15% 0.04 165)", "oklch(25% 0.07 165)", "oklch(35% 0.09 165)", "oklch(45% 0.11 165)", "oklch(55% 0.13 165)", "oklch(65% 0.14 165)", "oklch(79% 0.15 165)", "oklch(95% 0.05 165)"] },
+      "band-mid": { "role": "tertiary", "displayName": "Periwinkle", "canonical": "#6CB8FF", "tonalRamp": ["oklch(15% 0.04 250)", "oklch(25% 0.07 250)", "oklch(35% 0.1 250)", "oklch(45% 0.13 250)", "oklch(55% 0.14 250)", "oklch(65% 0.14 250)", "oklch(75% 0.13 250)", "oklch(95% 0.04 250)"] },
+      "band-upper": { "role": "tertiary", "displayName": "Night Violet", "canonical": "#B490FF", "tonalRamp": ["oklch(15% 0.05 295)", "oklch(25% 0.09 295)", "oklch(35% 0.13 295)", "oklch(45% 0.17 295)", "oklch(55% 0.19 295)", "oklch(65% 0.18 295)", "oklch(72% 0.16 295)", "oklch(95% 0.04 295)"] },
+      "band-premium": { "role": "tertiary", "displayName": "Rose", "canonical": "#FF6B8B", "tonalRamp": ["oklch(15% 0.05 10)", "oklch(25% 0.09 10)", "oklch(35% 0.13 10)", "oklch(45% 0.16 10)", "oklch(55% 0.19 10)", "oklch(65% 0.19 10)", "oklch(71% 0.18 10)", "oklch(95% 0.03 10)"] },
+      "alert-rose": { "role": "error", "displayName": "Alert Rose", "canonical": "#FF6B81", "tonalRamp": ["oklch(15% 0.05 15)", "oklch(25% 0.09 15)", "oklch(35% 0.13 15)", "oklch(45% 0.16 15)", "oklch(55% 0.19 15)", "oklch(65% 0.19 15)", "oklch(70% 0.18 15)", "oklch(95% 0.03 15)"] },
+      "day-amber": { "role": "primary", "displayName": "Day Sodium Amber", "canonical": "#9A5B00", "tonalRamp": ["oklch(15% 0.04 65)", "oklch(25% 0.07 65)", "oklch(35% 0.09 65)", "oklch(45% 0.11 65)", "oklch(52% 0.12 65)", "oklch(65% 0.14 65)", "oklch(80% 0.12 65)", "oklch(95% 0.04 65)"] },
+      "day-amber-deep": { "role": "primary", "displayName": "Day Sodium Amber Deep", "canonical": "#7A4700", "tonalRamp": ["oklch(15% 0.04 63)", "oklch(25% 0.07 63)", "oklch(35% 0.09 63)", "oklch(44% 0.1 63)", "oklch(55% 0.12 63)", "oklch(65% 0.13 63)", "oklch(80% 0.11 63)", "oklch(95% 0.04 63)"] },
+      "day-periwinkle": { "role": "secondary", "displayName": "Day Pin Periwinkle", "canonical": "#4B55C8", "tonalRamp": ["oklch(15% 0.06 275)", "oklch(25% 0.1 275)", "oklch(35% 0.14 275)", "oklch(48% 0.18 275)", "oklch(55% 0.17 275)", "oklch(65% 0.14 275)", "oklch(80% 0.08 275)", "oklch(95% 0.02 275)"] },
+      "day-ground": { "role": "neutral", "displayName": "Day Ground", "canonical": "#E9EBF5", "tonalRamp": ["oklch(15% 0.02 275)", "oklch(25% 0.02 275)", "oklch(35% 0.02 275)", "oklch(50% 0.02 275)", "oklch(65% 0.02 275)", "oklch(80% 0.015 275)", "oklch(88% 0.015 275)", "oklch(94% 0.012 275)"] },
+      "day-paper": { "role": "neutral", "displayName": "Day Paper", "canonical": "#FFFFFF", "tonalRamp": ["oklch(15% 0 0)", "oklch(25% 0 0)", "oklch(35% 0 0)", "oklch(50% 0 0)", "oklch(65% 0 0)", "oklch(80% 0 0)", "oklch(92% 0 0)", "oklch(100% 0 0)"] },
+      "day-raised": { "role": "neutral", "displayName": "Day Raised", "canonical": "#F3F4FA", "tonalRamp": ["oklch(15% 0.015 275)", "oklch(25% 0.015 275)", "oklch(35% 0.015 275)", "oklch(50% 0.015 275)", "oklch(65% 0.012 275)", "oklch(80% 0.01 275)", "oklch(90% 0.008 275)", "oklch(97% 0.007 275)"] },
+      "day-text": { "role": "neutral", "displayName": "Day Ink", "canonical": "#171A33", "tonalRamp": ["oklch(15% 0.04 275)", "oklch(21% 0.045 275)", "oklch(32% 0.045 275)", "oklch(45% 0.04 275)", "oklch(55% 0.035 275)", "oklch(68% 0.03 275)", "oklch(82% 0.02 275)", "oklch(95% 0.01 275)"] },
+      "day-text-secondary": { "role": "neutral", "displayName": "Day Dusk Ink", "canonical": "#555A7C", "tonalRamp": ["oklch(15% 0.03 275)", "oklch(25% 0.04 275)", "oklch(35% 0.045 275)", "oklch(46% 0.05 275)", "oklch(55% 0.045 275)", "oklch(68% 0.04 275)", "oklch(82% 0.025 275)", "oklch(95% 0.01 275)"] },
+      "day-hairline": { "role": "neutral", "displayName": "Day Hairline", "canonical": "rgba(30, 35, 80, 0.12)", "tonalRamp": ["rgba(30, 35, 80, 0.05)", "rgba(30, 35, 80, 0.08)", "rgba(30, 35, 80, 0.12)", "rgba(30, 35, 80, 0.18)", "rgba(30, 35, 80, 0.26)", "rgba(30, 35, 80, 0.38)", "rgba(30, 35, 80, 0.55)", "rgba(30, 35, 80, 0.75)"] },
+      "day-tooltip-ink": { "role": "neutral", "displayName": "Day Tooltip Ink", "canonical": "#22264A", "tonalRamp": ["oklch(15% 0.04 275)", "oklch(28% 0.06 275)", "oklch(35% 0.065 275)", "oklch(45% 0.065 275)", "oklch(55% 0.06 275)", "oklch(66% 0.05 275)", "oklch(80% 0.03 275)", "oklch(95% 0.01 275)"] },
+      "day-band-budget": { "role": "tertiary", "displayName": "Day Budget Teal", "canonical": "#0E9E70", "tonalRamp": ["oklch(15% 0.04 165)", "oklch(25% 0.07 165)", "oklch(35% 0.09 165)", "oklch(45% 0.11 165)", "oklch(60% 0.13 165)", "oklch(68% 0.14 165)", "oklch(80% 0.12 165)", "oklch(95% 0.04 165)"] },
+      "day-band-mid": { "role": "tertiary", "displayName": "Day Periwinkle", "canonical": "#2F7FD8", "tonalRamp": ["oklch(15% 0.04 255)", "oklch(25% 0.08 255)", "oklch(35% 0.11 255)", "oklch(45% 0.14 255)", "oklch(58% 0.16 255)", "oklch(68% 0.14 255)", "oklch(80% 0.09 255)", "oklch(95% 0.03 255)"] },
+      "day-band-upper": { "role": "tertiary", "displayName": "Day Night Violet", "canonical": "#7B52DB", "tonalRamp": ["oklch(15% 0.06 295)", "oklch(25% 0.1 295)", "oklch(35% 0.15 295)", "oklch(45% 0.19 295)", "oklch(56% 0.2 295)", "oklch(66% 0.17 295)", "oklch(80% 0.1 295)", "oklch(95% 0.03 295)"] },
+      "day-band-premium": { "role": "tertiary", "displayName": "Day Rose", "canonical": "#D93A5C", "tonalRamp": ["oklch(15% 0.05 12)", "oklch(25% 0.09 12)", "oklch(35% 0.13 12)", "oklch(45% 0.17 12)", "oklch(58% 0.19 12)", "oklch(68% 0.17 12)", "oklch(80% 0.1 12)", "oklch(95% 0.03 12)"] },
+      "day-alert-rose": { "role": "error", "displayName": "Day Alert Rose", "canonical": "#C62F4B", "tonalRamp": ["oklch(15% 0.05 15)", "oklch(25% 0.09 15)", "oklch(35% 0.13 15)", "oklch(45% 0.16 15)", "oklch(54% 0.18 15)", "oklch(66% 0.16 15)", "oklch(80% 0.1 15)", "oklch(95% 0.03 15)"] }
+    },
+    "typographyMeta": {
+      "brand": { "displayName": "Brand", "purpose": "The amber condensed wordmark in the app bar (1.25rem on phones)." },
+      "headline": { "displayName": "Headline", "purpose": "Listing title in the detail view; drawer title." },
+      "title": { "displayName": "Title", "purpose": "Empty-state headings." },
+      "row-title": { "displayName": "Row Title", "purpose": "Roster row place name (society, locality), one line with ellipsis." },
+      "body": { "displayName": "Body", "purpose": "Descriptions (max 65ch, 5-line clamp), result counts, sort select." },
+      "caption": { "displayName": "Caption", "purpose": "Facts lines, source names, units, fact labels, app bar subline." },
+      "band-header": { "displayName": "Band Header", "purpose": "Uppercase amber sticky stop headers every 2 km in the distance-sorted roster." },
+      "button": { "displayName": "Button", "purpose": "All button and tab labels; sentence case, never uppercase." },
+      "figure": { "displayName": "Figure", "purpose": "Every compared number: roster km (20px), roster rent (17px), counts (18-19px), drop label (14px/700)." },
+      "figure-large": { "displayName": "Figure Large", "purpose": "Detail view rent and amber km." }
+    },
+    "shadows": [
+      { "name": "map-control", "value": "0px 3px 3px -2px rgba(0,0,0,0.2), 0px 3px 4px 0px rgba(0,0,0,0.14), 0px 1px 8px 0px rgba(0,0,0,0.12)", "purpose": "MUI elevation 3: Drop a pin button and active-pin chip floating on the map." },
+      { "name": "homes-pill", "value": "0px 3px 5px -1px rgba(0,0,0,0.2), 0px 6px 10px 0px rgba(0,0,0,0.14), 0px 1px 18px 0px rgba(0,0,0,0.12)", "purpose": "MUI elevation 6: the phone N homes pill." },
+      { "name": "floating-card", "value": "0px 5px 5px -3px rgba(0,0,0,0.2), 0px 8px 10px 1px rgba(0,0,0,0.14), 0px 3px 14px 2px rgba(0,0,0,0.12)", "purpose": "MUI elevation 8 plus hairline border: desktop detail card over the map." },
+      { "name": "bottom-sheet", "value": "0px 7px 8px -4px rgba(0,0,0,0.2), 0px 12px 17px 2px rgba(0,0,0,0.14), 0px 5px 22px 4px rgba(0,0,0,0.12)", "purpose": "MUI elevation 12 plus hairline top border: phone detail sheet." },
+      { "name": "map-label", "value": "0 2px 8px rgba(0,0,0,0.35)", "purpose": "Amber km drop label; the office label uses 0.3 alpha." },
+      { "name": "emoji-lift", "value": "drop-shadow(0 2px 4px rgba(0,0,0,.45))", "purpose": "CSS filter lifting the clown office marker off the tiles." }
+    ],
+    "motion": [
+      { "name": "map-follow", "value": "flyToBounds 0.6s, maxZoom 16", "purpose": "On select, frame office and home together in the uncovered map area." },
+      { "name": "ease-out-expo", "value": "cubic-bezier(0.16, 1, 0.3, 1) 600ms", "purpose": "Source bar segments growing as each source finishes loading." },
+      { "name": "fade-quick", "value": "opacity 200ms", "purpose": "Source segments dimming when filtered out." },
+      { "name": "row-reveal", "value": "scrollIntoView smooth, block nearest", "purpose": "Scroll the roster to a home picked on the map." }
+    ],
+    "breakpoints": [
+      { "name": "md", "value": "900px", "purpose": "Desktop split (map + 420px roster aside + 380px floating detail) at and above; phone (full map, pill, right drawer, 60dvh bottom sheet) below." }
+    ],
+    "mapLayers": {
+      "tiles": "Esri Canvas World_{Dark|Light}_Gray_Base + World_{Dark|Light}_Gray_Reference, maxNativeZoom 16, maxZoom 19",
+      "tileFilterNight": "brightness(0.5) sepia(1) hue-rotate(200deg) saturate(2.4) contrast(1.05)",
+      "tileFilterDay": "sepia(0.4) hue-rotate(195deg) saturate(1.4)",
+      "tileFilterTarget": "base layer only (.base-tiles); labels untinted",
+      "stopRings": "amber, every 2 km, weight 1, opacity 0.22, dashArray 2 10",
+      "boundaryRing": "amber, 10 km, weight 1.5, opacity 0.55, dashArray 2 8",
+      "dropLine": "amber, weight 3, dashArray 1 9, lineCap round, office to selected home",
+      "selectedMarker": "radius 12, amber 3px ring, band fill at 1.0, inside a radius 15 ground-coloured 4px halo at 0.85",
+      "homeDots": "band fill 0.9, ground stroke; radius 2.5 / 3.5 / 5 / 6.5 for zoom <=12 / 13 / 14 / >=15",
+      "hoverRing": "radius 10, moonlight text colour, weight 2",
+      "pinRadius": "periwinkle, 2 km, weight 1.5, dashArray 6 6, fill 0.06",
+      "officeMarker": "🤡 emoji, 34px, zIndexOffset 1000"
+    }
+  },
+  "components": [
+    {
+      "name": "App Bar",
+      "kind": "nav",
+      "refersTo": "app-bar",
+      "description": "Night indigo shell in both modes: amber condensed wordmark over a muted caption, then shell-coloured text actions.",
+      "html": "<header class=\"ds-appbar\"><div class=\"ds-appbar-brand\"><h1 class=\"ds-appbar-title\">Night Coolies House</h1><p class=\"ds-appbar-sub\">Homes within 10 km of LTM Tower S2, Solaris, Hebbal</p></div><button class=\"ds-appbar-btn\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z\"/></svg>Export CSV</button><button class=\"ds-appbar-btn\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M16 5l-1.42 1.42-1.59-1.59V16h-1.98V4.83L9.42 6.42 8 5l4-4 4 4zm4 5v11c0 1.1-.9 2-2 2H6c-1.11 0-2-.9-2-2V10c0-1.11.89-2 2-2h3v2H6v11h12V10h-3V8h3c1.1 0 2 .89 2 2z\"/></svg>Share</button><span class=\"ds-appbar-progress\"></span></header>",
+      "css": ".ds-appbar { position: relative; display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 0 24px; background: #151935; color: #ECEAF6; border-bottom: 1px solid rgba(169, 174, 218, 0.18); font-family: Barlow, system-ui, sans-serif; } .ds-appbar-brand { flex: 1; min-width: 0; } .ds-appbar-title { margin: 0; font-family: 'Barlow Condensed', Barlow, sans-serif; font-weight: 700; font-size: 1.375rem; line-height: 1.1; letter-spacing: 0.01em; color: #FFB23F; } .ds-appbar-sub { margin: 0; font-size: 0.75rem; line-height: 1.4; color: #A9AEDA; } .ds-appbar-btn { display: inline-flex; align-items: center; gap: 8px; padding: 6px 8px; background: none; border: none; border-radius: 8px; color: inherit; font: 600 0.875rem/1.75 Barlow, sans-serif; letter-spacing: 0.01em; cursor: pointer; transition: background 150ms; } .ds-appbar-btn:hover { background: rgba(236, 234, 246, 0.08); } .ds-appbar-btn:focus-visible { outline: 2px solid #FFB23F; outline-offset: 2px; } .ds-appbar-progress { position: absolute; left: 0; bottom: 0; height: 2px; width: 40%; background: #FFB23F; }"
+    },
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Filled sodium amber for the one action that leaves for the source listing.",
+      "html": "<button class=\"ds-btn-primary\">Open on NoBroker<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z\"/></svg></button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-width: 240px; padding: 6px 16px; background: #FFB23F; color: #1F1400; border: none; border-radius: 8px; font: 600 0.875rem/1.75 Barlow, system-ui, sans-serif; letter-spacing: 0.01em; cursor: pointer; transition: background 150ms; } .ds-btn-primary:hover { background: #E09520; } .ds-btn-primary:focus-visible { outline: 2px solid #FFB23F; outline-offset: 2px; } .ds-btn-primary:active { background: #E09520; }"
+    },
+    {
+      "name": "Homes Pill",
+      "kind": "button",
+      "refersTo": "button-homes-pill",
+      "description": "Phone-only floating capsule with a condensed tabular count; opens the roster drawer.",
+      "html": "<button class=\"ds-pill\"><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-6c-.83 0-1.5.67-1.5 1.5S3.17 7.5 4 7.5 5.5 6.83 5.5 6 4.83 4.5 4 4.5zm0 12c-.83 0-1.5.68-1.5 1.5s.68 1.5 1.5 1.5 1.5-.68 1.5-1.5-.67-1.5-1.5-1.5zM7 19h14v-2H7v2zm0-6h14v-2H7v2zm0-8v2h14V5H7z\"/></svg><span class=\"ds-pill-count\">6,709</span>homes</button>",
+      "css": ".ds-pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 24px; background: #FFB23F; color: #1F1400; border: none; border-radius: 999px; font: 600 16px/1.75 Barlow, system-ui, sans-serif; cursor: pointer; box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2), 0px 6px 10px 0px rgba(0,0,0,0.14), 0px 1px 18px 0px rgba(0,0,0,0.12); transition: background 150ms; } .ds-pill:hover { background: #E09520; } .ds-pill:focus-visible { outline: 2px solid #FFB23F; outline-offset: 2px; } .ds-pill-count { font-family: 'Barlow Condensed', Barlow, sans-serif; font-weight: 600; font-size: 19px; font-variant-numeric: tabular-nums; }"
+    },
+    {
+      "name": "Search Field",
+      "kind": "input",
+      "refersTo": "input-search",
+      "description": "Small outlined field on a translucent dark well with a hairline outline and amber caret.",
+      "html": "<label class=\"ds-search\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\"/></svg><input class=\"ds-search-input\" placeholder=\"Search title, locality, society…\" aria-label=\"Search listings\"></label>",
+      "css": ".ds-search { display: flex; align-items: center; gap: 8px; width: 360px; padding: 8.5px 14px; background: rgba(0, 0, 0, 0.18); border: 1px solid rgba(160, 170, 235, 0.14); border-radius: 10px; color: #A3A8CC; transition: border-color 150ms; } .ds-search:hover { border-color: rgba(160, 170, 235, 0.3); } .ds-search:focus-within { border-color: #FFB23F; box-shadow: inset 0 0 0 1px #FFB23F; } .ds-search-input { flex: 1; background: none; border: none; outline: none; color: #ECEAF6; caret-color: #FFB23F; font: 400 0.875rem/1.45 Barlow, system-ui, sans-serif; } .ds-search-input::placeholder { color: #A3A8CC; opacity: 0.8; }"
+    },
+    {
+      "name": "Rent Band Chips",
+      "kind": "chip",
+      "refersTo": "chip-band",
+      "description": "Filter chips led by the rent-band dot; selected fills with the band colour at ~18%.",
+      "html": "<div class=\"ds-chips\"><button class=\"ds-chip\" aria-pressed=\"false\"><span class=\"ds-chip-dot\" style=\"background:#3DD6A3\"></span>Under ₹10k</button><button class=\"ds-chip ds-chip-on\" aria-pressed=\"true\" style=\"background:#6CB8FF2E\"><span class=\"ds-chip-dot\" style=\"background:#6CB8FF\"></span>₹10k–20k</button><button class=\"ds-chip\" aria-pressed=\"false\"><span class=\"ds-chip-dot\" style=\"background:#B490FF\"></span>₹20k–35k</button><button class=\"ds-chip\" aria-pressed=\"false\"><span class=\"ds-chip-dot\" style=\"background:#FF6B8B\"></span>₹35k+</button></div>",
+      "css": ".ds-chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px; background: #161A35; } .ds-chip { display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 10px 0 8px; background: transparent; border: 1px solid rgba(160, 170, 235, 0.14); border-radius: 16px; color: #A3A8CC; font: 600 0.8125rem Barlow, system-ui, sans-serif; cursor: pointer; transition: background 150ms; } .ds-chip:hover { background: rgba(236, 234, 246, 0.06); } .ds-chip:focus-visible { outline: 2px solid #FFB23F; outline-offset: 2px; } .ds-chip-on { border-color: transparent; color: #ECEAF6; } .ds-chip-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }"
+    },
+    {
+      "name": "BHK Toggle",
+      "kind": "button",
+      "refersTo": "toggle-bhk-selected",
+      "description": "Hairline segmented group; the selected segment is amber text on sodium wash.",
+      "html": "<div class=\"ds-toggle\" role=\"group\" aria-label=\"Bedrooms\"><button aria-pressed=\"false\">Any</button><button aria-pressed=\"false\">1</button><button aria-pressed=\"true\">2</button><button aria-pressed=\"false\">3</button><button aria-pressed=\"false\">4+</button></div>",
+      "css": ".ds-toggle { display: inline-flex; border: 1px solid rgba(160, 170, 235, 0.14); border-radius: 10px; overflow: hidden; } .ds-toggle button { padding: 4px 12px; background: transparent; border: none; border-left: 1px solid rgba(160, 170, 235, 0.14); color: #A3A8CC; font: 600 0.8125rem/1.75 Barlow, system-ui, sans-serif; cursor: pointer; transition: background 150ms; } .ds-toggle button:first-child { border-left: none; } .ds-toggle button:hover { background: rgba(236, 234, 246, 0.06); } .ds-toggle button:focus-visible { outline: 2px solid #FFB23F; outline-offset: -2px; } .ds-toggle button[aria-pressed=\"true\"] { color: #FFB23F; background: rgba(255, 178, 63, 0.14); }"
+    },
+    {
+      "name": "Roster with Stop Headers",
+      "kind": "custom",
+      "refersTo": "roster-row",
+      "description": "Signature: sticky 2 km stop header over dense rows that lead with distance, then place, then rent with band dot and source caption.",
+      "html": "<div class=\"ds-roster\"><div class=\"ds-stop\"><span class=\"ds-stop-label\">4–6 km from office</span><span class=\"ds-stop-count\">1,284 homes</span></div><button class=\"ds-row\"><span class=\"ds-km\"><b>4.6</b><small>km</small></span><span class=\"ds-place\"><b>Vidyaranyapura</b><small>2 BHK · 1,200 sqft · Unfurnished</small></span><span class=\"ds-rent\"><b><i style=\"background:#6CB8FF\"></i>₹18,000</b><small>NoBroker</small></span></button><button class=\"ds-row ds-row-on\"><span class=\"ds-km\"><b>4.8</b><small>km</small></span><span class=\"ds-place\"><b>Ashwini Flora, Horamavu</b><small>2 BHK · 1,235 sqft · Semi-furnished</small></span><span class=\"ds-rent\"><b><i style=\"background:#B490FF\"></i>₹26,500</b><small>MagicBricks</small></span></button></div>",
+      "css": ".ds-roster { width: 420px; background: #161A35; color: #ECEAF6; font-family: Barlow, system-ui, sans-serif; } .ds-stop { display: flex; justify-content: space-between; align-items: baseline; height: 32px; line-height: 32px; padding: 0 16px; border-bottom: 1px solid rgba(160, 170, 235, 0.14); } .ds-stop-label { color: #FFB23F; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; } .ds-stop-count { color: #A3A8CC; font-size: 0.75rem; font-variant-numeric: tabular-nums; } .ds-row { display: grid; grid-template-columns: 52px minmax(0, 1fr) auto; column-gap: 12px; align-items: center; width: 100%; padding: 8px 16px; background: transparent; border: none; border-bottom: 1px solid rgba(160, 170, 235, 0.14); color: inherit; text-align: left; cursor: pointer; transition: background 150ms; } .ds-row:hover { background: rgba(236, 234, 246, 0.05); } .ds-row:focus-visible { outline: 2px solid #FFB23F; outline-offset: -2px; } .ds-row-on, .ds-row-on:hover { background: rgba(255, 178, 63, 0.14); } .ds-row small { display: block; color: #A3A8CC; font-size: 0.75rem; line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .ds-km { text-align: right; } .ds-km b { display: block; font-family: 'Barlow Condensed', Barlow, sans-serif; font-weight: 600; font-size: 20px; line-height: 1.1; font-variant-numeric: tabular-nums; } .ds-km small { line-height: 1; } .ds-row-on .ds-km b { color: #FFB23F; } .ds-place { min-width: 0; } .ds-place b { display: block; font-size: 0.875rem; font-weight: 600; line-height: 1.35; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .ds-rent { text-align: right; } .ds-rent b { display: inline-flex; align-items: center; gap: 6px; font-family: 'Barlow Condensed', Barlow, sans-serif; font-weight: 600; font-size: 17px; line-height: 1.1; font-variant-numeric: tabular-nums; } .ds-rent i { width: 7px; height: 7px; border-radius: 50%; }"
+    },
+    {
+      "name": "Detail Figures and Action Bar",
+      "kind": "card",
+      "refersTo": "detail-card",
+      "description": "Floating detail card: figure-large rent with band dot beside the amber km figure, then the sticky action bar.",
+      "html": "<article class=\"ds-detail\"><h2 class=\"ds-detail-title\">2 BHK House for Lease In Jakkuru</h2><p class=\"ds-detail-sub\">2 BHK · Deposit ₹18 Lacs · Jakkuru</p><div class=\"ds-detail-figs\"><div><div class=\"ds-fig\">₹22,000</div><div class=\"ds-cap\"><i style=\"background:#B490FF\"></i>per month</div></div><div><div class=\"ds-fig ds-fig-km\">1.0<span>km</span></div><div class=\"ds-cap\">from office, straight line</div></div></div><div class=\"ds-actions\"><button class=\"ds-act-primary\">Open on NoBroker</button><button class=\"ds-act-icon\" aria-label=\"Add to shortlist\"><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z\"/></svg></button></div></article>",
+      "css": ".ds-detail { width: 380px; padding: 16px 16px 0; background: #161A35; color: #ECEAF6; border: 1px solid rgba(160, 170, 235, 0.14); border-radius: 10px; box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.2), 0px 8px 10px 1px rgba(0,0,0,0.14), 0px 3px 14px 2px rgba(0,0,0,0.12); font-family: Barlow, system-ui, sans-serif; } .ds-detail-title { margin: 0; font-size: 1.125rem; font-weight: 700; line-height: 1.3; } .ds-detail-sub { margin: 2px 0 16px; font-size: 0.875rem; line-height: 1.45; color: #A3A8CC; } .ds-detail-figs { display: flex; gap: 32px; align-items: flex-end; margin-bottom: 16px; } .ds-fig { font-family: 'Barlow Condensed', Barlow, sans-serif; font-weight: 700; font-size: 2rem; line-height: 1; font-variant-numeric: tabular-nums; } .ds-fig-km { color: #FFB23F; } .ds-fig-km span { font-size: 18px; margin-left: 4px; } .ds-cap { display: flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 0.75rem; color: #A3A8CC; } .ds-cap i { width: 8px; height: 8px; border-radius: 50%; } .ds-actions { display: flex; gap: 8px; margin: 0 -16px; padding: 12px 16px; border-top: 1px solid rgba(160, 170, 235, 0.14); } .ds-act-primary { flex: 1; padding: 6px 16px; background: #FFB23F; color: #1F1400; border: none; border-radius: 8px; font: 600 0.875rem/1.75 Barlow, sans-serif; cursor: pointer; transition: background 150ms; } .ds-act-primary:hover { background: #E09520; } .ds-act-primary:focus-visible, .ds-act-icon:focus-visible { outline: 2px solid #FFB23F; outline-offset: 2px; } .ds-act-icon { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: none; border: 1px solid rgba(160, 170, 235, 0.14); border-radius: 50%; color: #ECEAF6; cursor: pointer; transition: background 150ms, color 150ms; } .ds-act-icon:hover { background: rgba(236, 234, 246, 0.08); } .ds-act-icon[aria-pressed=\"true\"] { color: #FFB23F; }"
+    },
+    {
+      "name": "Drop Line and Km Label",
+      "kind": "custom",
+      "refersTo": "drop-label",
+      "description": "Signature: amber dotted drop line from the clown office to the selected home, km label attached to the selected marker, faint 2 km stop ring behind.",
+      "html": "<div class=\"ds-drop\"><svg class=\"ds-drop-svg\" viewBox=\"0 0 360 180\" aria-hidden=\"true\"><circle cx=\"60\" cy=\"120\" r=\"110\" fill=\"none\" stroke=\"#FFB23F\" stroke-opacity=\"0.22\" stroke-width=\"1\" stroke-dasharray=\"2 10\"/><line x1=\"60\" y1=\"120\" x2=\"250\" y2=\"50\" stroke=\"#FFB23F\" stroke-width=\"3\" stroke-dasharray=\"1 9\" stroke-linecap=\"round\"/><circle cx=\"120\" cy=\"60\" r=\"3.5\" fill=\"#3DD6A3\" fill-opacity=\"0.9\" stroke=\"#0E1126\" stroke-width=\"0.5\"/><circle cx=\"300\" cy=\"140\" r=\"3.5\" fill=\"#FF6B8B\" fill-opacity=\"0.9\" stroke=\"#0E1126\" stroke-width=\"0.5\"/><circle cx=\"250\" cy=\"50\" r=\"15\" fill=\"none\" stroke=\"#0E1126\" stroke-width=\"4\" stroke-opacity=\"0.85\"/><circle cx=\"250\" cy=\"50\" r=\"12\" fill=\"#B490FF\" stroke=\"#FFB23F\" stroke-width=\"3\"/></svg><span class=\"ds-drop-office\">🤡</span><span class=\"ds-drop-label\">1.0 km</span></div>",
+      "css": ".ds-drop { position: relative; width: 360px; height: 180px; background: #0E1126; border-radius: 10px; overflow: hidden; } .ds-drop-svg { position: absolute; inset: 0; width: 100%; height: 100%; } .ds-drop-office { position: absolute; left: 43px; top: 103px; font-size: 34px; line-height: 1; filter: drop-shadow(0 2px 4px rgba(0,0,0,.45)); } .ds-drop-label { position: absolute; left: 276px; top: 39px; padding: 2px 8px; background: #FFB23F; color: #1F1400; border-radius: 6px; font: 700 14px/1.4 'Barlow Condensed', Barlow, sans-serif; font-variant-numeric: tabular-nums; box-shadow: 0 2px 8px rgba(0,0,0,0.35); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Night Cab Roster",
+    "overview": "The office is the depot and every home is a drop on tonight's cab roster. The map is a night city in deep blue-violet, never pure black, and the only warm light in it is Bengaluru sodium-streetlight amber. Amber marks whatever you can act on and whatever you have picked. Everything else stays cool: the indigo shell, the moonlit text, the rent ramp of teal, periwinkle, violet and rose.\n\nThe roster is dense on purpose. Rows are about 52px tall, separated by hairline dividers, with right-aligned tabular figures. Distance from the 🤡 office is always the loudest number on screen. Rank comes from weight, case and the condensed figure face, not from a big type scale or whitespace. Day mode is the same system on cool grey-white with darker inks; the app bar stays night indigo in both modes.\n\nThe system refuses the property-portal default of photo cards on white with a blue accent. Photos appear only inside the detail view, never as the unit of the list.",
+    "keyCharacteristics": [
+      "Night indigo grounds layered by tone (ground, paper, raised), never pure black.",
+      "One warm accent, sodium amber, used only for action and selection.",
+      "Distance leads every row and every detail, set in Barlow Condensed with tabular figures.",
+      "Rent is encoded as a four-step cool-to-warm night ramp on map dots, band dots and chips.",
+      "The map always shows the office, the 2 km stop rings and the 10 km boundary. Selecting a home draws an amber dotted drop line out to it.",
+      "The 🤡 office marker and favicon are a fixed brand commitment."
+    ],
+    "rules": [
+      { "name": "The Sodium Light Rule", "body": "Amber means \"act here\" or \"this is the one you picked\". It never encodes data, so it never appears in the rent ramp, and a non-interactive surface never gets an amber fill.", "section": "colors" },
+      { "name": "The Hue-Is-Rent Rule", "body": "Hue on the map and in the roster encodes rent and nothing else. Sources are told apart by name, position and amber opacity shades (100, 72, 52, 36, 24%), never by their own hues.", "section": "colors" },
+      { "name": "The Never-Black Rule", "body": "Dark grounds are blue-violet (`night-ground` and up). Pure #000 appears only as a translucent darkener (the input well, shadows).", "section": "colors" },
+      { "name": "The Tabular Figure Rule", "body": "Any number a user compares (km, rent, count) is set in the figure face with tabular numerals and right-aligned in its column. Inline counts in body text still use `tabular-nums`.", "section": "typography" },
+      { "name": "The Loudest Number Rule", "body": "Distance is the largest figure in a roster row (20px vs. 17px for rent) and shares top billing with rent in the detail view. Nothing else in a row is set larger.", "section": "typography" },
+      { "name": "The Float-Only Shadow Rule", "body": "A surface gets a shadow only when it floats over the map. Docked chrome stays flat and is separated by hairlines.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do lead every listing row and detail with distance from the office, in the figure face, larger than rent.",
+      "Do keep amber for action and selection only: primary buttons, selected rows and toggles, the drop line, the km label, focus, caret and selection.",
+      "Do encode rent with the four-band ramp (teal, periwinkle, violet, rose) and show the band dot next to every rent figure.",
+      "Do name a listing by its place (society, locality) in lists. Keep the source's title for the detail headline.",
+      "Do keep the 2 km stop rings on the map and the 2 km stop headers in the distance-sorted roster in step (both driven by the 2 km band).",
+      "Do frame office and home together in the uncovered part of the map whenever a home is selected.",
+      "Do keep the 🤡 office marker and favicon exactly as shipped. They are a brand commitment.",
+      "Do separate docked surfaces with hairlines and reserve shadows for what floats over the map."
+    ],
+    "donts": [
+      "Don't put amber, or any hue reserved for action, into the rent ramp or any other data encoding.",
+      "Don't give sources their own hues. Distinguish them by name, order and amber opacity shades.",
+      "Don't use pure black grounds or MUI's dark-mode paper gradient. Grounds are blue-violet tonal layers.",
+      "Don't build list rows as photo cards. Photos live only in the detail view's scroll strip.",
+      "Don't use the boilerplate listing title (\"2 BHK Flat for Lease In …\") as a roster row's main line.",
+      "Don't replace the Esri Canvas tiles with CARTO basemaps (they now require an API key), and don't apply the tint filter to the label layer.",
+      "Don't replace the 🤡 marker with a generic pin or logo."
+    ]
+  }
+}
