@@ -4,8 +4,8 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { RefreshCw, Moon, Sun, Download, Share2, Heart, Scale, BarChart3, MapPin, X } from 'lucide-react';
 
-const CENTER = { lat: 12.9499095, lon: 77.5925484 };
-const MAX_DISTANCE = 5; // km
+const CENTER = { lat: 13.0690331, lon: 77.5919998 };
+const MAX_DISTANCE = 10; // km
 const MAX_PAGES = 25; // safety limit
 
 function getDistance(lat1, lon1, lat2, lon2) {
@@ -151,7 +151,7 @@ function App() {
       }
 
       setTotalShown(total);
-      setStatus(`Done ✅ Showing ${total} rooms within 5km`);
+      setStatus(`Done ✅ Showing ${total} rooms within ${MAX_DISTANCE}km`);
       setLoading(false);
     }
 
